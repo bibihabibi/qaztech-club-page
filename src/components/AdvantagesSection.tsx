@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Globe, Users, Buildings, Award } from 'lucide-react';
+import { Globe, Users, Building, Award } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const AdvantagesSection: React.FC = () => {
@@ -38,7 +38,7 @@ const AdvantagesSection: React.FC = () => {
     {
       title: "Доступ к госструктурам",
       description: "Прямой диалог с государственными органами, влияние на формирование отраслевых политик и законодательства",
-      icon: Buildings,
+      icon: Building,
       delay: 300
     },
     {
