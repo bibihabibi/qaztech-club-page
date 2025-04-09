@@ -5,128 +5,96 @@ import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
-// Full list of companies
+// Full list of companies based on provided content
 const companies = [
-  { id: 1, name: 'ОЮЛ "Центр анализа и расследования кибер атак"', category: 'Cybersecurity', logo: '🔵' },
-  { id: 2, name: 'ЧК "TrustMe Limited"', category: 'IT Services', logo: '🔵' },
-  { id: 3, name: 'ТОО "Digitize"', category: 'Digital Services', logo: '🔵' },
-  { id: 4, name: 'ТОО "Центр информационных отраслевых решений Интегро"', category: 'Information Technology', logo: '🔵' },
-  { id: 5, name: 'ТОО "Communications Kazakhstan"', category: 'Communications', logo: '🔵' },
-  { id: 6, name: 'ТОО "Rocket Tech"', category: 'Technology', logo: '🔵' },
-  { id: 7, name: 'ЧК "EasyTap ltd"', category: 'FinTech', logo: '🔵' },
-  { id: 8, name: 'ТОО "Alan Tech"', category: 'IT Services', logo: '🔵' },
-  { id: 9, name: 'ТОО "Core24/7"', category: 'Technology', logo: '🔵' },
-  { id: 10, name: 'ТОО "Республиканский медицинский институт"', category: 'Healthcare Tech', logo: '🔵' },
-  { id: 11, name: 'ТОО "Your Dream Tech"', category: 'IT Services', logo: '🔵' },
-  { id: 12, name: 'ТОО "Tredo"', category: 'Digital Services', logo: '🔵' },
-  { id: 13, name: 'ТОО "ТехКазак"', category: 'Technology', logo: '🔵' },
-  { id: 14, name: 'ТОО "Сайлет"', category: 'IT Services', logo: '🔵' },
-  { id: 15, name: 'ТОО "Akyl Solutions"', category: 'AI & ML', logo: '🔵' },
-  { id: 16, name: 'ТОО "City Innovation Проект AI Pradavan"', category: 'AI & ML', logo: '🔵' },
-  { id: 17, name: 'ТОО "Maxinum Consulting Group"', category: 'Consulting', logo: '🔵' },
-  { id: 18, name: 'ЧК "TargetAI Limited"', category: 'AI & ML', logo: '🔵' },
-  { id: 19, name: 'ТОО "Smart Parking Technologies"', category: 'IoT', logo: '🔵' },
-  { id: 20, name: 'ТОО "Proitivity"', category: 'IT Services', logo: '🔵' },
-  { id: 21, name: 'ТОО "Azimut Solutions"', category: 'IT Solutions', logo: '🔵' },
-  { id: 22, name: 'ТОО "Kramtech"', category: 'Technology', logo: '🔵' },
-  { id: 23, name: 'TOO "Ihs"', category: 'IT Services', logo: '🔵' },
-  { id: 24, name: 'ТОО "Элтекс Алатау"', category: 'Technology', logo: '🔵' },
-  { id: 25, name: 'ТОО "Интер Сервис"', category: 'Services', logo: '🔵' },
-  { id: 26, name: 'ТОО "Power Media"', category: 'Media', logo: '🔵' },
-  { id: 27, name: 'ТОО "ATI Projects"', category: 'IT Projects', logo: '🔵' },
-  { id: 28, name: 'ТОО "Tis-servise"', category: 'Services', logo: '🔵' },
-  { id: 29, name: 'ТОО "GreenDem"', category: 'Green Technology', logo: '🔵' },
-  { id: 30, name: 'ТОО "Цифровые налоговые технологии"', category: 'FinTech', logo: '🔵' },
-  { id: 31, name: 'ЧК "Al-Farabi Innovation Hub Ltd"', category: 'Innovation', logo: '🔵' },
-  { id: 32, name: 'ТОО "Arg Group Ltd"', category: 'IT Group', logo: '🔵' },
-  { id: 33, name: 'ТОО "Alta Telecom"', category: 'Telecommunications', logo: '🔵' },
-  { id: 34, name: 'ТОО "Aardvark"', category: 'Technology', logo: '🔵' },
-  { id: 35, name: 'ТОО "Смарт заправка"', category: 'IoT', logo: '🔵' },
-  { id: 36, name: 'ТОО "Aimi automation services"', category: 'Automation', logo: '🔵' },
-  { id: 37, name: 'ТОО "Ost Engineering"', category: 'Engineering', logo: '🔵' },
-  { id: 38, name: 'ТОО "ZeinetSSE"', category: 'IT Services', logo: '🔵' },
-  { id: 39, name: 'ТОО "Geometry"', category: 'Technology', logo: '🔵' },
-  { id: 40, name: 'ТОО "It-enterprise"', category: 'Enterprise IT', logo: '🔵' },
-  { id: 41, name: 'ТОО "Baiterek Engineering"', category: 'Engineering', logo: '🔵' },
-  { id: 42, name: 'ТОО "Big Dream Lab"', category: 'Innovation', logo: '🔵' },
-  { id: 43, name: 'ТОО "Digital geology"', category: 'Geo Tech', logo: '🔵' },
-  { id: 44, name: 'ЧК "iKapitalist Ltd"', category: 'FinTech', logo: '🔵' },
-  { id: 45, name: 'ТОО "Daedalus Mind Projects"', category: 'AI & ML', logo: '🔵' },
-  { id: 46, name: 'ТОО "RocketTech"', category: 'Technology', logo: '🔵' },
-  { id: 47, name: 'ТОО "Ag Tech"', category: 'AgriTech', logo: '🔵' },
-  { id: 48, name: 'ТОО "eCapital"', category: 'FinTech', logo: '🔵' },
-  { id: 49, name: 'ТОО "Kazprom avtomatika"', category: 'Automation', logo: '🔵' },
-  { id: 50, name: 'ТОО "Глобал Новиком"', category: 'IT Services', logo: '🔵' },
-  { id: 51, name: 'ТОО "Arta Software"', category: 'Software', logo: '🔵' },
-  { id: 52, name: 'ТОО "Ordagen ERP"', category: 'ERP Systems', logo: '🔵' },
-  { id: 53, name: 'Platma', category: 'FinTech', logo: '🔵' },
-  { id: 54, name: 'ТОО "Codiplay"', category: 'Software', logo: '🔵' },
-  { id: 55, name: 'Acf Pit', category: 'IT Services', logo: '🔵' },
-  { id: 56, name: 'ТОО "Alpha.Tech.Edu"', category: 'EdTech', logo: '🔵' },
-  { id: 57, name: 'ТОО "Апару"', category: 'IT Services', logo: '🔵' },
-  { id: 58, name: 'ТОО "Сункар МС"', category: 'Technology', logo: '🔵' },
-  { id: 59, name: 'ТОО "Formula three"', category: 'Technology', logo: '🔵' },
-  { id: 60, name: 'ТОО "Arlan SI"', category: 'IT Services', logo: '🔵' },
-  { id: 61, name: 'ТОО "Sheksiz Orta"', category: 'Technology', logo: '🔵' },
-  { id: 62, name: 'ТОО "EmAI"', category: 'AI & ML', logo: '🔵' },
-  { id: 63, name: 'ТОО "Обработка больших данных"', category: 'Big Data', logo: '🔵' },
-  { id: 64, name: 'ТОО "IBecSystems"', category: 'IT Systems', logo: '🔵' },
-  { id: 65, name: 'ТОО "Ids Robotics"', category: 'Robotics', logo: '🔵' },
-  { id: 66, name: 'ТОО "Edge-Apps"', category: 'Mobile Apps', logo: '🔵' },
-  { id: 67, name: 'ТОО "Группа Роботек"', category: 'Robotics', logo: '🔵' },
-  { id: 68, name: 'ТОО "Техноробот"', category: 'Robotics', logo: '🔵' },
-  { id: 69, name: 'ТОО "Ziz inc"', category: 'Technology', logo: '🔵' },
-  { id: 70, name: 'TOO "Time Tracker"', category: 'Software', logo: '🔵' },
-  { id: 71, name: 'ИП "Sb Dev"', category: 'Development', logo: '🔵' },
-  { id: 72, name: 'ТОО "Damumed"', category: 'Healthcare Tech', logo: '🔵' },
-  { id: 73, name: 'ТОО "Data Star"', category: 'Data Analytics', logo: '🔵' },
-  { id: 74, name: 'ТОО "Hyperoptic Q"', category: 'Technology', logo: '🔵' },
-  { id: 75, name: 'ТОО "Special Gear Kazakhstan"', category: 'Hardware', logo: '🔵' },
-  { id: 76, name: 'ТОО "Office-Expert.kz"', category: 'IT Services', logo: '🔵' },
-  { id: 77, name: 'ТОО "Sunrise Development"', category: 'Development', logo: '🔵' },
-];
-
-// Categories for filtering
-const categories = [
-  'All',
-  'AI & ML',
-  'Automation',
-  'Big Data',
-  'Cybersecurity', 
-  'Development',
-  'Digital Services',
-  'EdTech',
-  'Engineering',
-  'Enterprise IT',
-  'FinTech',
-  'Healthcare Tech',
-  'Innovation',
-  'IoT',
-  'IT Services',
-  'IT Solutions',
-  'Media',
-  'Mobile Apps',
-  'Robotics',
-  'Software',
-  'Technology',
-  'Telecommunications',
+  { id: 1, name: 'ОЮЛ "Центр анализа и расследования кибер атак"', logo: '🔵' },
+  { id: 2, name: 'ЧК "TrustMe Limited"', logo: '🔵' },
+  { id: 3, name: 'ТОО "Digitize"', logo: '🔵' },
+  { id: 4, name: 'ТОО "Центр информационных отраслевых решений Интегро"', logo: '🔵' },
+  { id: 5, name: 'ТОО "Communications Kazakhstan"', logo: '🔵' },
+  { id: 6, name: 'ТОО "Rocket Tech"', logo: '🔵' },
+  { id: 7, name: 'ЧК "EasyTap ltd"', logo: '🔵' },
+  { id: 8, name: 'ТОО "Alan Tech"', logo: '🔵' },
+  { id: 9, name: 'ТОО "Core24/7"', logo: '🔵' },
+  { id: 10, name: 'ТОО "Республиканский медицинский институт"', logo: '🔵' },
+  { id: 11, name: 'ТОО "Your Dream Tech"', logo: '🔵' },
+  { id: 12, name: 'ТОО "Tredo"', logo: '🔵' },
+  { id: 13, name: 'ТОО "ТехКазак"', logo: '🔵' },
+  { id: 14, name: 'ТОО "Сайлет"', logo: '🔵' },
+  { id: 15, name: 'ТОО "Akyl Solutions"', logo: '🔵' },
+  { id: 16, name: 'ТОО "City Innovation Проект AI Pradavan"', logo: '🔵' },
+  { id: 17, name: 'ТОО "Maxinum Consulting Group"', logo: '🔵' },
+  { id: 18, name: 'ЧК "TargetAI Limited"', logo: '🔵' },
+  { id: 19, name: 'ТОО "Smart Parking Technologies"', logo: '🔵' },
+  { id: 20, name: 'ТОО "Proitivity"', logo: '🔵' },
+  { id: 21, name: 'ТОО "Azimut Solutions"', logo: '🔵' },
+  { id: 22, name: 'ТОО "Kramtech"', logo: '🔵' },
+  { id: 23, name: 'TOO "Ihs"', logo: '🔵' },
+  { id: 24, name: 'ТОО "Элтекс Алатау"', logo: '🔵' },
+  { id: 25, name: 'ТОО "Интер Сервис"', logo: '🔵' },
+  { id: 26, name: 'ТОО "Power Media"', logo: '🔵' },
+  { id: 27, name: 'ТОО "ATI Projects"', logo: '🔵' },
+  { id: 28, name: 'ТОО "Tis-servise"', logo: '🔵' },
+  { id: 29, name: 'ТОО "GreenDem"', logo: '🔵' },
+  { id: 30, name: 'ТОО "Цифровые налоговые технологии"', logo: '🔵' },
+  { id: 31, name: 'ЧК "Al-Farabi Innovation Hub Ltd"', logo: '🔵' },
+  { id: 32, name: 'ТОО "Arg Group Ltd"', logo: '🔵' },
+  { id: 33, name: 'ТОО "Alta Telecom"', logo: '🔵' },
+  { id: 34, name: 'ТОО "Aardvark"', logo: '🔵' },
+  { id: 35, name: 'ТОО "Смарт заправка"', logo: '🔵' },
+  { id: 36, name: 'ТОО "Aimi automation services"', logo: '🔵' },
+  { id: 37, name: 'ТОО "Ost Engineering"', logo: '🔵' },
+  { id: 38, name: 'ТОО "ZeinetSSE"', logo: '🔵' },
+  { id: 39, name: 'ТОО "Geometry"', logo: '🔵' },
+  { id: 40, name: 'ТОО "It-enterprise"', logo: '🔵' },
+  { id: 41, name: 'ТОО "Baiterek Engineering"', logo: '🔵' },
+  { id: 42, name: 'ТОО "Big Dream Lab"', logo: '🔵' },
+  { id: 43, name: 'ТОО "Digital geology"', logo: '🔵' },
+  { id: 44, name: 'ЧК "iKapitalist Ltd"', logo: '🔵' },
+  { id: 45, name: 'ТОО "Daedalus Mind Projects"', logo: '🔵' },
+  { id: 46, name: 'ТОО "RocketTech"', logo: '🔵' },
+  { id: 47, name: 'ТОО "Ag Tech"', logo: '🔵' },
+  { id: 48, name: 'ТОО "eCapital"', logo: '🔵' },
+  { id: 49, name: 'ТОО "Kazprom avtomatika"', logo: '🔵' },
+  { id: 50, name: 'ТОО "Глобал Новиком"', logo: '🔵' },
+  { id: 51, name: 'ТОО "Arta Software"', logo: '🔵' },
+  { id: 52, name: 'ТОО "Ordagen ERP"', logo: '🔵' },
+  { id: 53, name: 'Platma', logo: '🔵' },
+  { id: 54, name: 'ТОО "Codiplay"', logo: '🔵' },
+  { id: 55, name: 'Acf Pit', logo: '🔵' },
+  { id: 56, name: 'ТОО "Alpha.Tech.Edu"', logo: '🔵' },
+  { id: 57, name: 'ТОО "Апару"', logo: '🔵' },
+  { id: 58, name: 'ТОО "Сункар МС"', logo: '🔵' },
+  { id: 59, name: 'ТОО "Formula three"', logo: '🔵' },
+  { id: 60, name: 'ТОО "Arlan SI"', logo: '🔵' },
+  { id: 61, name: 'ТОО "Sheksiz Orta"', logo: '🔵' },
+  { id: 62, name: 'ТОО "EmAI"', logo: '🔵' },
+  { id: 63, name: 'ТОО "Обработка больших данных"', logo: '🔵' },
+  { id: 64, name: 'ТОО "IBecSystems"', logo: '🔵' },
+  { id: 65, name: 'ТОО "Ids Robotics"', logo: '🔵' },
+  { id: 66, name: 'ТОО "Edge-Apps"', logo: '🔵' },
+  { id: 67, name: 'ТОО "Группа Роботек"', logo: '🔵' },
+  { id: 68, name: 'ТОО "Техноробот"', logo: '🔵' },
+  { id: 69, name: 'ТОО "Ziz inc"', logo: '🔵' },
+  { id: 70, name: 'TOO "Time Tracker"', logo: '🔵' },
+  { id: 71, name: 'ИП "Sb Dev"', logo: '🔵' },
+  { id: 72, name: 'ТОО "Damumed"', logo: '🔵' },
+  { id: 73, name: 'ТОО "Data Star"', logo: '🔵' },
+  { id: 74, name: 'ТОО "Hyperoptic Q"', logo: '🔵' },
+  { id: 75, name: 'ТОО "Special Gear Kazakhstan"', logo: '🔵' },
+  { id: 76, name: 'ТОО "Office-Expert.kz"', logo: '🔵' },
+  { id: 77, name: 'ТОО "Sunrise Development"', logo: '🔵' },
 ];
 
 const ClubSection: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
   const [filteredCompanies, setFilteredCompanies] = useState<typeof companies>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [showAllCompanies, setShowAllCompanies] = useState(false);
   
   useEffect(() => {
-    // Filter companies based on category
-    const filtered = selectedCategory === 'All' 
-      ? companies 
-      : companies.filter(company => company.category === selectedCategory);
-    
     // Show only first 12 companies unless "show all" is clicked
-    setFilteredCompanies(showAllCompanies ? filtered : filtered.slice(0, 12));
-  }, [selectedCategory, showAllCompanies]);
+    setFilteredCompanies(showAllCompanies ? companies : companies.slice(0, 12));
+  }, [showAllCompanies]);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -170,31 +138,11 @@ const ClubSection: React.FC = () => {
           isVisible ? "opacity-100 translate-y-0 transition-all duration-700 delay-200" : "opacity-0 translate-y-10"
         )}>
           <TabsList className="grid w-full grid-cols-2 mb-8">
-            <TabsTrigger value="members" className="text-lg py-3">Участники</TabsTrigger>
-            <TabsTrigger value="criteria" className="text-lg py-3">Критерии</TabsTrigger>
+            <TabsTrigger value="members" className="text-lg py-3">ЧЛЕНЫ КЛУБА</TabsTrigger>
+            <TabsTrigger value="criteria" className="text-lg py-3">КРИТЕРИИ ВСТУПЛЕНИЯ</TabsTrigger>
           </TabsList>
           
           <TabsContent value="members" className="mt-6">
-            {/* Category filter */}
-            <div className="mb-8 overflow-x-auto whitespace-nowrap pb-2">
-              <div className="flex flex-wrap gap-2 justify-center">
-                {categories.map(category => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={cn(
-                      "px-4 py-2 rounded-full text-sm transition-all duration-300",
-                      selectedCategory === category 
-                        ? "bg-qaztech-blue text-white" 
-                        : "bg-white text-gray-700 hover:bg-gray-100"
-                    )}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-            </div>
-            
             {/* Companies grid - more compact with smaller cards */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
               {filteredCompanies.map((company, index) => (
@@ -211,9 +159,6 @@ const ClubSection: React.FC = () => {
                   <div className="flex flex-col items-center text-center h-full">
                     <div className="text-2xl mb-2">{company.logo}</div>
                     <h3 className="text-xs font-medium mb-1 line-clamp-2 h-8">{company.name}</h3>
-                    <span className="text-[10px] text-gray-500 px-2 py-0.5 bg-gray-50 rounded-full mt-auto">
-                      {company.category}
-                    </span>
                   </div>
                 </div>
               ))}
@@ -246,7 +191,7 @@ const ClubSection: React.FC = () => {
               "bg-white rounded-lg p-8 shadow-sm",
               isVisible ? "opacity-100 translate-y-0 transition-all duration-700 delay-300" : "opacity-0 translate-y-10"
             )}>
-              <h3 className="text-xl font-bold mb-6 text-center">Критерии для вступления в Клуб</h3>
+              <h3 className="text-xl font-bold mb-6 text-center">КРИТЕРИИ ВСТУПЛЕНИЯ</h3>
               
               <div className="space-y-8">
                 {/* Point 1 */}
