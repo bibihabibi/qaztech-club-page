@@ -114,17 +114,18 @@ const categories = [
 
 const ClubSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [filteredCompanies, setFilteredCompanies] = useState(companies.slice(0, 12));
+  const [filteredCompanies, setFilteredCompanies] = useState<typeof companies>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [showAllCompanies, setShowAllCompanies] = useState(false);
   
   useEffect(() => {
-    if (selectedCategory === 'All') {
-      setFilteredCompanies(showAllCompanies ? companies : companies.slice(0, 12));
-    } else {
-      const filtered = companies.filter(company => company.category === selectedCategory);
-      setFilteredCompanies(showAllCompanies ? filtered : filtered.slice(0, 12));
-    }
+    // Filter companies based on category
+    const filtered = selectedCategory === 'All' 
+      ? companies 
+      : companies.filter(company => company.category === selectedCategory);
+    
+    // Show only first 12 companies unless "show all" is clicked
+    setFilteredCompanies(showAllCompanies ? filtered : filtered.slice(0, 12));
   }, [selectedCategory, showAllCompanies]);
   
   useEffect(() => {
@@ -132,6 +133,7 @@ const ClubSection: React.FC = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.1 }
@@ -175,7 +177,7 @@ const ClubSection: React.FC = () => {
           <TabsContent value="members" className="mt-6">
             {/* Category filter */}
             <div className="mb-8 overflow-x-auto whitespace-nowrap pb-2">
-              <div className="flex space-x-2">
+              <div className="flex flex-wrap gap-2 justify-center">
                 {categories.map(category => (
                   <button
                     key={category}
@@ -193,23 +195,23 @@ const ClubSection: React.FC = () => {
               </div>
             </div>
             
-            {/* Companies grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {/* Companies grid - more compact with smaller cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
               {filteredCompanies.map((company, index) => (
                 <div 
                   key={company.id}
                   className={cn(
-                    "bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300",
+                    "bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-300",
                     "transform hover:-translate-y-1 hover:border-qaztech-blue",
                     "border-2 border-transparent",
                     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                   )}
-                  style={{ transitionDelay: `${index * 50 + 300}ms` }}
+                  style={{ transitionDelay: `${Math.min(index * 30, 1000)}ms` }}
                 >
                   <div className="flex flex-col items-center text-center h-full">
                     <div className="text-2xl mb-2">{company.logo}</div>
-                    <h3 className="text-sm font-medium mb-1 line-clamp-2">{company.name}</h3>
-                    <span className="text-xs text-gray-500 px-2 py-1 bg-gray-100 rounded-full mt-auto">
+                    <h3 className="text-xs font-medium mb-1 line-clamp-2 h-8">{company.name}</h3>
+                    <span className="text-[10px] text-gray-500 px-2 py-0.5 bg-gray-50 rounded-full mt-auto">
                       {company.category}
                     </span>
                   </div>
