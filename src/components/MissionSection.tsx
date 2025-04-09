@@ -73,6 +73,11 @@ const MissionSection: React.FC = () => {
     }
   ];
 
+  // Extract color classes for each mission card
+  const getGradientClasses = (colorClass: string) => {
+    return `bg-gradient-to-r ${colorClass}`;
+  };
+
   return (
     <section id="mission" className="py-20 bg-white relative overflow-hidden">
       {/* Decorative background */}
@@ -103,11 +108,10 @@ const MissionSection: React.FC = () => {
               style={{ transitionDelay: `${mission.delay}ms` }}
             >
               {/* Top colored gradient strip */}
-              <div className={`h-2 w-full bg-gradient-to-r ${mission.color}`}></div>
+              <div className={`h-2 w-full ${getGradientClasses(mission.color)}`}></div>
               
               <div className="p-6">
-                <div className="w-14 h-14 rounded-lg flex items-center justify-center bg-gradient-to-r mb-6 text-white shadow-md"
-                     style={{ backgroundImage: `linear-gradient(to right, var(--tw-gradient-stops))`, '--tw-gradient-from': mission.color.split(' ')[0].replace('from-', ''), '--tw-gradient-to': mission.color.split(' ')[1].replace('to-', '') }}>
+                <div className={`w-14 h-14 rounded-lg flex items-center justify-center ${getGradientClasses(mission.color)} mb-6 text-white shadow-md`}>
                   <mission.icon size={28} />
                 </div>
                 
@@ -125,8 +129,7 @@ const MissionSection: React.FC = () => {
               </div>
               
               {/* Bottom hover reveal line */}
-              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                   style={{ backgroundImage: `linear-gradient(to right, var(--tw-gradient-stops))`, '--tw-gradient-from': mission.color.split(' ')[0].replace('from-', ''), '--tw-gradient-to': mission.color.split(' ')[1].replace('to-', '') }}></div>
+              <div className={`absolute bottom-0 left-0 w-full h-0.5 ${getGradientClasses(mission.color)} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
             </div>
           ))}
         </div>
